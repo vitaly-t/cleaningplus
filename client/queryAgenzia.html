@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Query Agenzia</title>
+    <script src="../js/lib/bootstrap-datepicker.js"></script>
+    <script src="js/clientfunctions.js"></script>
+    <link rel="stylesheet/less" type="text/css" href="../less/datepicker.less" />
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <style>
+        input {
+            margin-bottom:0.5em;
+        }
+        div {
+            text-align:center;
+        }
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
+        }
+
+        .table {
+            border-radius: 5px;
+            width: 50%;
+            margin: 20px auto;
+            float: none;
+        }
+  </style>
+
+</head>
+<body class="ciao">
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" onclick="getPageIndex()">Cleaning Plus</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a onclick="getPageIndex()">Home</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Agenzie Pulizie<strong class="caret"></strong></a>
+                <ul class="dropdown-menu">
+                    <li><a onclick="getPageBaccini()">Baccini</a></li>
+                    <li><a onclick="getPageHintown()">Hintowm</a></li>
+                    <li><a onclick="getPageQueryAzienda()">Visualizza Database</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Agenzie Clienti<strong class="caret"></strong></a>
+                <ul class="dropdown-menu">
+                    <li><a onclick="getPageAgenzia()">Inserire Dati</a></li>
+                    <li><a onclick="getpageAgenzieVisualizzaDati()">Visualizzare Dati</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+
+<script src="js/calendar.js"></script>
+<h3>Segli che tipo di dati visualizzare</h3>
+<strong>Visualizza mese e anno <input type="checkbox"  id="f1" class="check" onclick="hideMonthOrDay(1)"/></strong><br>
+<strong>Visualizza giorno mese e anno <input type="checkbox"  id="f2" class="check" onclick="hideMonthOrDay(2)"/></strong><br>
+
+
+<div id="meseAnno" class="meseAnno" style="display:none;">
+    <label>Seleziona Agenzia :</label>
+        <select id="selctAgenziaMonth">
+        <option value="Hintown">Hintown Roma SRL</option>
+        <option value="Baccini">Baccini</option>
+    </select>
+    <label for="startDate">Data :</label>
+    <input name="startDate" id="startDate" class="date-picker" style="ui-datepicker-calendar:none"/>
+    <button onclick="queryDb('selctAgenziaMonth', 'startDate')" class="btn btn-default">Visualizza Dati</button>
+</div>
+<div id="giornoMeseAnno" class="giornoMeseAnno" style="display:none;">
+    <script>
+        $(document).ready(function() {
+            $("#datepicker").datepicker({ dateFormat: 'dd-mm-yy' });
+        });
+
+    </script>
+    <label>Seleziona Agenzia :</label>
+    <select id="selctAgenziaDay">
+        <option value="Hintown">Hintown Roma SRL</option>
+        <option value="Baccini">Baccini</option>
+    </select>
+    <label>Data :</label>
+    <input id="datepicker" equired="required"/>
+    <button onclick="queryDb('selctAgenziaDay', 'datepicker')" class="btn btn-default">Visualizza Dati</button>
+</div>
+<div class="container" style="display:none;" id="messaggeDB">
+    <h2></h2>
+    <div class="alert alert-success alert-dismissible" id="myAlert">
+        <a href="#" class="close" onclick="noDataDBMessage()">&times;</a>
+        <strong>Nessun dato da visualizzare!</strong>
+    </div>
+</div>
+<div id="tableBody" style="display:none;">
+    <h3>Pulito</h3>
+    <table id="excelDataTable0" border="1" style="width:70%"  class="table table-bordered">
+    </table>
+    <h3>Sporco</h3>
+    <table id="excelDataTable1" border="1" style="width:70%"  class="table table-bordered">
+    </table>
+    <h3>Extra - Pulito</h3>
+    <table id="excelDataTable2" border="1" style="width:70%"  class="table table-bordered">
+    </table>
+    <h3>Extra - Manca</h3>
+    <table id="excelDataTable3" border="1" style="width:70%"  class="table table-bordered">
+    </table>
+    <h3>Extra</h3>
+    <table id="excelDataTable4" border="1" style="width:70%"  class="table table-bordered">
+    </table>
+</div>
+</body>
+</html>

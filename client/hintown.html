@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Hintown</title>
+
+    <!-- Calendario   -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    <!-- Style   -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src = "js/clientfunctions.js"></script>
+    <link href="../css/style.css" rel="stylesheet">
+
+    <script>
+        $(document).ready(function() {
+            $("#datepicker").datepicker({ dateFormat: 'dd-mm-yy' });
+        });
+    </script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" onclick="getPageIndex()">Cleaning Plus</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a onclick="getPageIndex()">Home</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Agenzie Pulizie<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a onclick="getPageBaccini()">Baccini</a></li>
+                    <li><a onclick="getPageHintown()">Hintowm</a></li>
+                    <li><a onclick="getPageQueryAzienda()">Visualizza Database</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Agenzie Clienti<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a onclick="getPageAgenzia()">Inserire Dati</a></li>
+                    <li><a onclick="getpageAgenzieVisualizzaDati()">Visualizzare Dati</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <div class="btn-nav"><a class="btn btn-primary btn-small navbar-btn" onclick="addElementsIntoHintown()">Aggiungi valori</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div>
+    <h1>Hintown</h1>
+    <h3>Data: <input id="datepicker" equired="required" autocomplete="on" /></h3>
+    <div class="container" style="display:none;" id="messagge1">
+        <h2></h2>
+        <div class="alert alert-success alert-dismissible" id="myAlert">
+            <a href="#" class="close" onclick="hideMessage('messagge1')">&times;</a>
+            <strong>Database Aggiornato!</strong>
+        </div>
+    </div>
+    <table style="width:70%" id="tablehintown" class="table table-bordered">
+        <tr>
+            <th colspan="2">Pulito App</th>
+            <th colspan="2">Sporco</th>
+            <th colspan="2"><br>Extra
+                <br>Pulito/Manca</th>
+        </tr>
+        <tr>
+            <td>L.S. Royal</td>
+            <td><input type="number" NAME="LSRoyalPulito" SIZE="10" value="0"></td>
+            <td>L.S. Royal</td>
+            <td><input type="number" NAME="LSRoyalSporco" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="LSRoyalExtraPulito" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="LSRoyalExtraManca" SIZE="10" value="0"></td>
+        </tr>
+        <tr>
+            <td>L.S. Star</td>
+            <td><input type="number" NAME="LSStarPulito" SIZE="10" value="0"></td>
+            <td>L.S. Star</td>
+            <td><input type="number" NAME="LSStarSporco" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="LSStarExtraPulito" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="LSStarExtraManca" SIZE="10" value="0"></td>
+        </tr>
+        <tr>
+            <td>L.M. Royal</td>
+            <td><input type="number" NAME="LMRoyalPulito" SIZE="10" value="0"></td>
+            <td>L.M. Royal</td>
+            <td><input type="number" NAME="LMRoyalSporco" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="LMRoyalExtraPulito" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="LMRoyalExtraManca" SIZE="10" value="0"></td>
+        </tr>
+        <tr>
+            <td>L.M. Star</td>
+            <td><input type="number" NAME="LMStarPulito" SIZE="10" value="0"></td>
+            <td>L.M. Star</td>
+            <td><input type="number" NAME="LMStarSporco" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="LMStarExtraPulito" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="LMStarExtraManca" SIZE="10" value="0"></td>
+        </tr>
+        <tr>
+            <td>F</td>
+            <td><input type="number" NAME="FPulito" SIZE="10" value="0"></td>
+            <td>F</td>
+            <td><input type="number" NAME="FSporco" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="FExtraPulito" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="FExtraManca" SIZE="10" value="0"></td>
+        </tr>
+        <tr>
+            <td>A.G.</td>
+            <td><input type="number" NAME="AGPulito" SIZE="10" value="0"></td>
+            <td>A.G.</td>
+            <td><input type="number" NAME="AGSporco" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="AGExtraPulito" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="AGExtraManca" SIZE="10" value="0"></td>
+        </tr>
+        <tr>
+            <td>A.M.</td>
+            <td><input type="number" NAME="AMPulito" SIZE="10" value="0"></td>
+            <td>A.M.</td>
+            <td><input type="number" NAME="AMSporco" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="AMExtraPulito" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="AMExtraManca" SIZE="10" value="0"></td>
+        </tr>
+        <tr>
+            <td>A.P.</td>
+            <td><input type="number" NAME="APPulito" SIZE="10" value="0"></td>
+            <td>A.P.</td>
+            <td><input type="number" NAME="APSporco" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="APExtraPulito" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="APExtraManca" SIZE="10" value="0"></td>
+        </tr>
+        <tr>
+            <td>T</td>
+            <td><input type="number" NAME="TPulito" SIZE="10" value="0"></td>
+            <td>T</td>
+            <td><input type="number" NAME="TSporco" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="TExtraPulito" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="TExtraManca" SIZE="10" value="0"></td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td><input type="number" NAME="CPulito" SIZE="10" value="0"></td>
+            <td>C</td>
+            <td><input type="number" NAME="CSporco" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="CExtraPulito" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="CExtraManca" SIZE="10" value="0"></td>
+        </tr>
+    </table>
+    <h3>Stocc App</h3>
+    <table style="width:70%" id="tablehintownapp" class="table table-bordered">
+        <tr>
+            <th>L.S Star</th>
+            <th>L.M Star</th>
+            <th>C.M.M</th>
+            <th>C.M.S</th>
+            <th>Extra</th>
+        </tr>
+        <tr>
+            <td><input type="number" NAME="LSStar" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="LMStar" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="cmm" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="cms" SIZE="10" value="0"></td>
+            <td><input type="number" NAME="extra" SIZE="10" value="0"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

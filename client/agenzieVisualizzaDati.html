@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualizzazione Dati</title>
+    <!-- Calendario   -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    <!-- Style   -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src = "js/clientfunctions.js"></script>
+    <link href="../css/style.css" rel="stylesheet">
+
+    <script>
+        $(document).ready(function() {
+            $("#datepicker").datepicker({ dateFormat: 'dd-mm-yy' });
+        });
+    </script>
+
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" onclick="getPageIndex()">Cleaning Plus</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a onclick="getPageIndex()">Home</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Agenzie Pulizie<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a onclick="getPageBaccini()">Baccini</a></li>
+                    <li><a onclick="getPageHintown()">Hintowm</a></li>
+                    <li><a onclick="getPageQueryAzienda()">Visualizza Database</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Agenzie Clienti<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a onclick="getPageAgenzia()">Inserire Dati</a></li>
+                    <li><a onclick="getpageAgenzieVisualizzaDati()">Visualizzare Dati</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div>
+    <select class="selectbox" id="agenzia" class="form-control" name = "region" data-table="regions" data-parent="parent_id" data-name="name" data-target="targetselect">
+        <option value = "">Seleziona Agenzia</option>
+        <option value = '1'>Andrea</option>
+        <option value = '2'>Constanza</option>
+        <option value = '3'>Alex</option>
+        <option value = '4'>Alex2</option>
+        <option value = '5'>Hintown</option>
+        <option value = '6'>Alberto</option>
+        <option value = '7'>Gianluca</option>
+        <option value = '8'>Fabrizio</option>
+        <option value = '9'>Roberta</option>
+        <option value = '10'>Alessandro</option>
+        <option value = '11'>Pierpaolo</option>
+    </select>
+
+    <select  class="targetselect" id="targetselect" class="form-control">
+        <option value = "">Seleziona Appartamento</option>
+    </select>
+    <br>
+    <script src="js/calendar.js"></script>
+    <strong>Visualizza mese e anno <input type="checkbox"  id="f1" class="check" onclick="hideMonthOrDay(1)"/></strong><br>
+    <strong>Visualizza giorno mese e anno <input type="checkbox"  id="f2" class="check" onclick="hideMonthOrDay(2)"/></strong><br>
+
+    <div id="range">
+        <!--there was no "range" element-->
+    </div>
+    <div id="meseAnno" class="meseAnno" style="display:none;">
+        <label for="startDate">Data :</label>
+        <input name="startDate" id="startDate" class="date-picker" style="ui-datepicker-calendar:none"/>
+        <button onclick="queryRegistroDb('startDate')" class="btn btn-default">Visualizza Dati</button>
+    </div>
+    <div id="giornoMeseAnno" class="giornoMeseAnno" style="display:none;">
+        <script>
+            $(document).ready(function() {
+                $("#datepicker").datepicker({ dateFormat: 'dd-mm-yy' });
+            });
+
+        </script>
+        <label>Data :</label>
+        <input id="datepicker" equired="required"/>
+        <button onclick="queryRegistroDb('datepicker')" class="btn btn-default">Visualizza Dati</button>
+    </div>
+    <div class="container" style="display:none;" id="messaggeDB">
+        <h2></h2>
+        <div class="alert alert-success alert-dismissible" id="myAlert">
+            <a href="#" class="close" onclick="noDataDBMessage()">&times;</a>
+            <strong>Nessun dato da visualizzare!</strong>
+        </div>
+    </div>
+    <div id="mese" style="display:none;">
+        <strong>Agenzia: </strong><label id="mese1"></label>
+        <br><strong>Appartamento: </strong><label id="mese2"></label><br>
+        <strong>Prezzo totale extra: </strong><label id="mese3"></label><br>
+        <strong>Totale persone appartamento: </strong><label id="mese8"></label><br>
+        <strong>Prezzo totale perosone: </strong><label id="mese5"></label><br>
+        <strong>Totale extra aggiunti: </strong><label id="mese6"></label><br>
+        <strong>Prezzo totale appartamento: </strong><label id="mese4"></label><br>
+        <strong>Prezzo Totale degli extra e persone: </strong><label id="mese7"></label><br>
+    </div>
+    <div id="giorno" style="display:none;">
+        <strong>Agenzia: </strong><label id="giornop1"></label>
+        <br><strong>Appartamento: </strong><label id="giornop2"></label><br>
+        <strong>funzionario: </strong><label id="giornop3"></label><br>
+        <strong>Numero Persone: </strong><label id="giornop4"></label><br>
+    </div>
+</div>
+</body>
+</html>

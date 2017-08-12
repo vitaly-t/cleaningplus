@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inserimento Dati</title>
+    <!-- Calendario   -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    <!-- Style   -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src = "js/clientfunctions.js"></script>
+    <link href="../css/style.css" rel="stylesheet">
+
+    <script>
+        $(document).ready(function() {
+            $("#datepicker").datepicker({ dateFormat: 'dd-mm-yy' });
+        });
+    </script>
+
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" onclick="getPageIndex()">Cleaning Plus</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a onclick="getPageIndex()">Home</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Agenzie Pulizie<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a onclick="getPageBaccini()">Baccini</a></li>
+                    <li><a onclick="getPageHintown()">Hintowm</a></li>
+                    <li><a onclick="getPageQueryAzienda()">Visualizza Database</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Agenzie Clienti<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a onclick="getPageAgenzia()">Inserire Dati</a></li>
+                    <li><a onclick="getpageAgenzieVisualizzaDati()">Visualizzare Dati</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+        <select class="selectbox" id="agenzia" class="form-control" name = "region" data-table="regions" data-parent="parent_id" data-name="name" data-target="targetselect">
+            <option value = "">Seleziona Agenzia</option>
+            <option value = '1'>Andrea</option>
+            <option value = '2'>Constanza</option>
+            <option value = '3'>Alex</option>
+            <option value = '4'>Alex2</option>
+            <option value = '5'>Hintown</option>
+            <option value = '6'>Alberto</option>
+            <option value = '7'>Gianluca</option>
+            <option value = '8'>Fabrizio</option>
+            <option value = '9'>Roberta</option>
+            <option value = '10'>Alessandro</option>
+            <option value = '11'>Pierpaolo</option>
+        </select>
+
+        <select name = "city" class="targetselect" id="targetselect" class="form-control">
+            <option value = "">Seleziona Appartamento</option>
+        </select>
+        <span>Data: <input id="datepicker" equired="required"/></span>
+        N. Persone: <input type="number"  id="persone" value="0">
+        Funzionario: <input type="text" id="funzionario" name="fname">
+        <strong><input type="checkbox"  id="check" class="check"/> add Bonus</strong>
+    <button onclick="persistsRegistro()" class="btn btn-default">Registra Dati</button>
+<div class="container" style="display:none;" id="messagge">
+    <h2></h2>
+    <div class="alert alert-success alert-dismissible" id="myAlert">
+        <a href="#" class="close" onclick="hideMessage('messagge')">&times;</a>
+        <strong>Dati Registrati!</strong>
+    </div>
+</div>
+</body>
+</html>
