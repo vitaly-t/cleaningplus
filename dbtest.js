@@ -10,11 +10,11 @@ var table2 = "hintown_sporco"
 
 db.task(function(t) {
     // creating a sequence of transaction queries:
-    const q1 = t.any(' select sum(lsstar) as lsstarTot  from $1:raw ' +
+    const q1 = t.any(' select sum(lsstar) as lsstarTot  from $1:name ' +
         'WHERE EXTRACT(month from data) = $2 ' +
         'AND EXTRACT(year FROM data) = $3 ' +
         'group by(data)', [table1, 8, '2017']);
-    const q2 = t.any('select * from $1:raw primo join $3:raw', [table2, '2017-08-09', table2]);
+    const q2 = t.any('select * from $1:name primo join $3:name', [table2, '2017-08-09', table2]);
 
     return t.batch([q1, q2]); // all of the queries are to be resolved;
 })
